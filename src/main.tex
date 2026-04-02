@@ -1,0 +1,294 @@
+\documentclass[12pt]{article}
+
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools, epigraph, bussproofs}
+
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{definition}{Определение}
+\newtheorem{example}{Пример}
+\newtheorem{corollary}{Следствие}
+\newtheorem{algorithm}{Алгоритм}
+\newtheorem{remark}{Замечание}
+\newtheorem{notation}{Обозначение}
+
+\title{Математическая логика}
+\date{\today}
+
+
+\setlength\epigraphwidth{.8\textwidth}
+\setlength\epigraphrule{0pt}
+
+\large
+\begin{document}
+\maketitle
+\section{Язык высказываний}
+
+Давайте перед началом вспомним, что такое формальный язык и контекстно-свободная грамматика.
+
+Символы --- это значки, которые мы не определяем. Например, $a$, $b$, $c$ --- это символы.
+Слова --- это последовательность символов ($abc$ --- это слово). Если мы пишем слова последовательно, то мы конкатенируем эти слова и получаем новое слово (Если $w = ab, v = cd $, то $ wv = abcd$). Мы бронием значок $\epsilon$ для обозначения пустого слова.
+
+Алфавит --- это множество букв. Язык --- это множество слов.
+
+Если $L$ --- язык, то $L^* = \bigcup_{i=0}^\infty L^i$
+
+\begin{definition}
+  Контекстно-свободная грамматика $G$ --- это $(V,T,P,S)$, где
+  \begin{itemize}
+  \item $V$ - мн-во нетерминальных символов,
+  \item $T$ - мн-во терминальных символов,
+  \item $P$ - мн-во продукций, конкретно, элементов $A \longrightarrow \alpha$, где $A \in V, \alpha \in (V \cup T)^*$
+  \item $S \in V$ -  начальный символ
+
+  \end{itemize}
+  (Про то, как он порождает язык, я не буду говорить)))) )
+\end{definition}
+
+\begin{definition}
+  Пусть $\mathcal{P}$ - произвольный алфавит, который мы будем называть множество пропозиональных переменных.
+
+  Тогда $L$ - язык высказываний, если это язык в алфавите $\mathcal{P} \sqcup \{\land, \lor, \lnot, \rightarrow, ), (, \bot, \top\}$ и задаётся следующей грамматикой:
+  \begin{align*}
+    S & \longrightarrow p \text{, где } p \in \mathcal{P}\\
+    & \longrightarrow \bot\\
+    & \longrightarrow \top\\
+    & \longrightarrow (\lnot S)\\
+    & \longrightarrow (S \lor S)\\
+    & \longrightarrow (S \land S)\\
+    & \longrightarrow (S \to S)\\
+  \end{align*}
+\end{definition}
+
+Договоримся, что у нас такой приоритет операций
+$\lnot\land\lor\to$
+, начиная, конечно, с первой операции.
+
+Договоримся, что $\lor$ и $\land$ - левоассоциативные операция.
+Насчёт $\to$: математики любят, чтобы они было левоассоциативными
+, а программисты --- правоассоциативные. (Та же ассоциативность, что стрелочном типе в система типов HM).
+
+
+
+\section{Классическая семантика}
+%% \epigraph{\itshape Begin at the beginning, the King said gravely, ``and go on till you come to the end: then stop.''}{---Lewis Carroll, \textit{Alice in Wonderland}}
+Приготовьтесь, здесь будет много определений.
+  Здесь $\mathbb{B}_0 = \{0, 1\}$
+
+\begin{definition}
+  $\mathcal{I}: \mathcal{P} \rightarrow \mathbb{B}_0$ --- интерпретация (Напомним, что $\mathcal{P}$ --- это множество пропозициональных переменных)
+\end{definition}
+
+\begin{definition}
+  $[\![ \phi ]\!]_{\mathcal{I}}$ - семантическая скобка, которая выдает значение из $\mathbb{B}_0$, где $\phi$ - формула
+  Индуктивно определим:
+  \begin{itemize}
+  \item $[\![ p ]\!]_{\mathcal{I}} = \mathcal{I}(p)$, $p \in \mathcal{P}$
+  \item $[\![ \bot ]\!]_{\mathcal{I}} = 0$
+  \item $[\![ \top ]\!]_{\mathcal{I}} = 1$
+  \item $[\![ \lnot \phi ]\!]_{\mathcal{I}} = 1 - [\![ \phi ]\!]_{\mathcal{I}}$
+  \item $[\![ \phi \lor \psi ]\!]_{\mathcal{I}} = max([\![ \phi ]\!]_{\mathcal{I}}, [\![ \psi ]\!]_{\mathcal{I}})$
+  \item $[\![ \phi \land \psi ]\!]_{\mathcal{I}} = min([\![ \phi ]\!]_{\mathcal{I}}, [\![ \psi ]\!]_{\mathcal{I}})$
+  \item $[\![ \phi \to \psi ]\!]_{\mathcal{I}} = [\![ \lnot \phi \lor \psi ]\!]_{\mathcal{I}}$
+  \end{itemize}
+\end{definition}
+
+\begin{example}
+  Пусть $\mathcal{I}$ --- такая интерпретация, что $\mathcal{I}(p) = 1, \mathcal{I}(q) = 0$
+  
+  Тогда $[\![ (p \to q) \lor (q \to (q \land \lnot q)) ]\!]_{\mathcal{I}} = 1$
+\end{example}
+
+\begin{definition}
+  \leavevmode  
+  \begin{enumerate}
+  \item $\phi$ - тавтология, если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \phi ]\!]_{\mathcal{I}} = 1$
+  \item $\phi$ - невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \phi ]\!]_{\mathcal{I}} = 0$
+  \item $\phi$ - выполнима (SAT), если $\exists \ \mathcal{I}$ --- интерпретация, $[\![ \phi ]\!]_{\mathcal{I}} = 1$
+
+  \end{enumerate}
+\end{definition}
+\begin{example}
+  В классической логике (которую мы рассматриваем) формула $a \lor \lnot a$ ---  тавтология
+\end{example}
+
+\begin{definition}[Логическое следствие]
+  Если для всякой интерпретации $\mathcal{I}$, такое что $[\![ \phi ]\!]_{\mathcal{I}} = 1$, выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, то пишем $\phi \models \psi$.
+\end{definition}
+
+\begin{definition}
+  $\mathcal{T}$ --- теория, если это множество формул.
+\end{definition}
+
+\begin{definition}
+  \leavevmode
+  \begin{enumerate}
+  \item Теория $\mathcal{T}$ выполнима (SAT), если $\exists \ \mathcal{I}$ --- интерпретация, $\forall \ \phi \in \mathcal{T}, [\![ \phi ]\!]_{\mathcal{I}} = 1$.
+  \item Теория $\mathcal{T}$ невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $\exists \ \phi \in \mathcal{T}, [\![ \phi ]\!]_{\mathcal{I}} = 0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  Пусть $\mathcal{T}$ --- теория, $\phi$ --- формула.
+  Мы пишем $\mathcal{T} \models \phi$, если $\forall \ \mathcal{I}$ --- интерпретация, при которой $\mathcal{I}$ --- SAT, $[\![ \psi ]\!]_{\mathcal{I}} = 1$
+\end{definition}
+
+\begin{definition}[Модель теории]
+  Пусть $\mathcal{T}$ --- теория, $\mathcal{I}$ --- интерпретация.
+
+  
+  $\mathcal{I}$ - модель теории $\mathcal{T}$, если $\forall \phi \in \mathcal{I}, [\![ \psi ]\!]_{\mathcal{I}} = 1$
+\end{definition}
+\begin{corollary}
+  \leavevmode
+  \begin{enumerate}
+  \item Теория $\mathcal{T}$ выполнима (SAT), если $\exists \ \mathcal{M}$ --- модель теории $\mathcal{T}$.
+  \item Теория $\mathcal{T}$ невыполнима (UNSAT), если $\nexists$ модели.
+  \end{enumerate}
+\end{corollary}  
+\begin{remark}[Упрощение обозначения логического следствия]
+  \leavevmode
+  \begin{enumerate}
+  \item $\{p, q\} \models r \iff p, q \models r$
+  \item $T \cup \phi \models \psi \iff T , \phi \models \psi$
+  \item $\varnothing \models \phi \iff \ \models \phi$
+  \end{enumerate}
+  Здесь $\Leftrightarrow$ --- равносильность утверждений
+\end{remark}
+
+\begin{definition}
+  Пусть $A$ и $T$ --- теории.
+  $A$ --- аксиома теории $T$,
+  если $\forall \phi \in A, T \models \phi \ $  и  $ \ \forall \phi \in T, A \models \phi$
+\end{definition}
+\begin{definition}
+ $T$  --- конечно аксиоматизируема, если $\exists A : A$ --- конечная аксиома теории $T$
+\end{definition}
+
+\begin{theorem}[О логическом следствии]
+  Пусть $\Gamma$ --- множество формул, $\phi$ и $\psi$ --- формулы. Тогда
+  \[ \Gamma, \phi \models \psi \hspace{1cm} \text{тогда и только тогда, когда} \hspace{1cm} \Gamma \models \phi \to \psi\]
+\end{theorem}
+\begin{proof}
+  \textbf{Необходимость}:
+
+  Пусть $\Gamma, \phi \models \psi$ и $\mathcal{I}$ --- модель $\Gamma$
+
+  \underline{Случай 1}: $[\![ \phi ]\!]_{\mathcal{I}} = 0$.
+  Очевидно, т.к. из лжи следует всё что угодно
+  
+  \underline{Случай 2}: $[\![ \phi ]\!]_{\mathcal{I}} = 1$.
+  
+  $[\![ \phi ]\!]_{\mathcal{I}} = 1 \Rightarrow [\![ \psi ]\!]_{\mathcal{I}} = 1 \Rightarrow [\![ \phi \to \psi ]\!]_{\mathcal{I}} = 1$
+  
+  \textbf{Достаточность}:
+
+  Пусть $\Gamma \models \phi \to \psi$ и $\mathcal{I}$ --- модель $\Gamma$
+
+  Знаем, что $[\![ \phi \to \psi ]\!]_{\mathcal{I}} = 1$
+
+  Если выполнено $[\![ \phi ]\!]_{\mathcal{I}} = 1$, тогда выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, что удовлетворяет $\Gamma, \phi \models \psi$ по определению
+  
+\end{proof}
+
+\begin{definition}
+  $\phi \sim \psi \iff \phi \models \psi \ $ и $\ \psi \models \phi$
+\end{definition}
+\begin{example}
+  \leavevmode
+  \begin{itemize}
+  \item $\phi \to \psi \sim \lnot \psi \to \lnot \phi$
+  \item $\lnot \lnot \phi \sim \phi$
+  \item $\lnot (\phi \land \psi) \sim \lnot \phi \lor \lnot \psi$
+  \end{itemize}
+\end{example}
+
+\section{Классическое исчисление}
+Исчисление --- это некая система над символами, дающая нам возможность дедуцировать слова из уже существующих слов, используя так называемые правила вывода.
+
+\begin{example}
+  Тут очень подошёл бы пример с SAT солвером
+\end{example}
+
+\begin{definition}
+  Исчисление $\mathcal{C}$ задаётся:
+  \begin{enumerate}
+  \item Языком 
+  \item Аксиомами
+  \item Правилами вывода
+  \end{enumerate}
+  Теперь по-подробнее:
+  
+  Пусть $L$ --- язык исчисления $\mathcal{C}$ над алфавитом $\Sigma$
+  \begin{enumerate}
+  \item Множество аксиом $Ax$--- это подмножество $L$
+  \item
+    Правило вывода $\mathcal{R}$ --- это $(n + 1)$-арное отношение, где $n \in \mathbb{N}_+$
+
+    Если $(\alpha_1, \alpha_2, ..., \alpha_n, \alpha) \in \mathcal{R}$, то говорят $\alpha$ получился из $\alpha_1, \alpha_2, ..., \alpha_n$ применением правилом вывода $\mathcal{R}$ или $\alpha$ --- результат применения $\mathcal{R}$ из $\alpha_1, \alpha_2, ..., \alpha_n$
+    
+  \end{enumerate}
+\end{definition}
+
+Мы будем дальше говорить, что гипотеза $\Gamma$ --- это подмножество $L$
+
+\begin{definition}
+  Вывод из гипотезы $\Gamma$ является последовательность слов $\alpha_1, \alpha_2, ..., \alpha_n$ c запятой-разделителем в которой каждое слово $\alpha_i$...
+  \begin{enumerate}
+  \item Либо аксиома
+  \item Либо гипотеза
+  \item Либо получается по некоторому правилу выводу из прошлых выведенных слов $\alpha_{i_1}, \alpha_{i_2}, ..., \alpha_{i_k}$, где $i_1, ..., i_k $ меньше $i$
+  \end{enumerate}
+
+\end{definition}
+
+\begin{notation}
+  $\Gamma \vdash \phi$ --- значит $\phi$ выводится из гипотез, принадлежащих $\Gamma$
+
+  Ещё $\varnothing \vdash \phi \iff \vdash \phi$
+\end{notation}
+
+\begin{definition}
+  Исчисления высказываний Гильбертского типа --- это исчисление, которое строится следующим образом:
+  \begin{enumerate}
+  \item Язык --- это язык высказываний
+  \item Аксиомы: %% (Дальше пояснения в скобках --- не просто мнемоника, а соответствие Чёрча-Ховарда (TODO: Проверить на достоверность))
+
+    Пусть $\alpha, \beta, \gamma$ --- well formed formulas
+
+    \begin{enumerate}
+    \item $\alpha \rightarrow \beta \rightarrow \alpha$ (Как комбинатор K из SKI)
+    \item $(\alpha \rightarrow \beta \rightarrow \gamma) \rightarrow (\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow \gamma)$ (Как комбинатор S из SKI)
+    \item $\alpha \land \beta \rightarrow \alpha$ (Как функция fst из OCaml)
+    \item $\alpha \land \beta \rightarrow \beta$ (Как функция snd из OCaml)
+    \item $\alpha \rightarrow \alpha \lor \beta$ (Left)
+    \item $\beta \rightarrow \alpha \lor \beta$ (Right)
+    \item $\alpha \rightarrow \beta \rightarrow \alpha \land \beta$ (Создание пары)
+    \item $(\alpha \rightarrow \gamma) \rightarrow (\beta \rightarrow \gamma) \rightarrow (\alpha \lor \beta \rightarrow \gamma)$ (Pattern matching)
+    \item $\alpha \rightarrow \top$
+    \item $\bot \rightarrow \alpha$
+    \item $(\alpha \rightarrow \bot) \rightarrow \lnot \alpha$
+    \item $\lnot \alpha \rightarrow (\alpha \rightarrow \bot)$
+    \item $(\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow \lnot \beta) \rightarrow \lnot \alpha$
+    \item $\lnot \lnot \alpha \rightarrow \alpha$ (Снятие двойного отрицания)
+    \end{enumerate}
+  \item Правило вывода только одно --- modus ponens, а именно
+  \begin{prooftree}
+    \AxiomC{$\alpha, \ \alpha \rightarrow \beta$}
+    \UnaryInfC{$\beta$}
+  \end{prooftree}
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  Зная, что первые две аксиомы исчисление Гильбертского типа --- типы функций $K$ и $S$ из комбинаторной логики SKI соответсвенно, мы можем дедуцировать $\alpha \rightarrow \alpha$
+
+  $I = (SK)K$
+\end{example}
+
+\end{document}
