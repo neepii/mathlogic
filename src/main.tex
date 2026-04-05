@@ -318,7 +318,7 @@ $\lnot\land\lor\to$
 
   Пусть $\Gamma, \varphi \vdash \psi$, тогда существует формальный вывод слова $\psi$:
   \[ \alpha_1 , \alpha_2, ..., \alpha_n\]
-  , где \alpha_n = \psi
+  , где $\alpha_n = \psi$
 
   Сделаем такую последовательность слов:
   \[ \varphi \rightarrow \alpha_1 , \varphi \rightarrow \alpha_2, ..., \varphi \rightarrow \alpha_n\]
@@ -406,17 +406,17 @@ $\lnot\land\lor\to$
   \]
   \[
   T_{n+1} =\begin{cases}
-    $\{\alpha_n\} \cup T_n$ & ,\text{если она SAT}\\
-    $T_n$ & ,\text{иначе}
+    \{\alpha_n\} \cup T_n & ,\text{если она SAT}\\
+    T_n & ,\text{иначе}
   \end{cases}
   \]
 
   Определяем \[T^* = \bigcup\limits_{n=0}^{\infty}T_n\]
 
   \begin{description}
-  \item[T^* \text{ непротиворечивая:}] \hfill \\
+  \item[$T^* \text{ непротиворечивая:}$] \hfill \\
     Предположим обратное, пусть $T^*$ --- противоречивая теория, тогда есть формальный вывод $\bot$. Это формальный вывод пренадлежит также конечному подмножеству $T^*$, назовём такую теорию $T^{\prime}$. Тогда $\exists n$, что $T^{\prime} \subset T_n$, но тогда $T^{\prime}$ непротиворечивая (?!!)
-  \item[T^* \text{ максимально непротиворечивая:}] \hfill \\
+  \item[$T^* \text{ максимально непротиворечивая:}$] \hfill \\
     Предположим обратное, пусть $\exists \varphi : T^* \nvdash \varphi$ и $T^* \nvdash \lnot \varphi$. Докажем, что $T^* \cup \{\varphi\}$ --- непротиворечивая. Опять от противного, $T^* \cup \{\varphi\}$ --- противоречивая, тогда \[T^*, \varphi \vdash \bot\]
     Применяя теорему о дедукции, получаем $T^*\vdash \varphi \to \bot$, но если воспользоваться аксиомой
     $(\varphi \to \bot) \to \lnot \varphi$, то тогда $T^*\vdash \lnot \varphi$ (?!!)
@@ -429,19 +429,23 @@ $\lnot\land\lor\to$
   По предыдущей теореме существует максимально непротиворечивая теория $T^* \subset T$. Любая модель $T^*$ есть $T$, поэтому для доказательства теоремы достаточно найти модель для $T^*$.
 
   $T^*$ --- максимально непротиворечивая, тогда для любой пропозициональной переменной $p$ либо $T^* \vdash p$, либо $T^* \vdash \lnot p$.
-  Определим $\mathcal{I}(p) = $
-  \begin{cases}
-    1, & T^* \vdash p\\
-    0, & T^* \vdash \lnot p
-  \end{cases}
+
+  Определим
+  \begin{align}
+    \mathcal{I}(p) = \begin{cases}
+      1, & T^* \vdash p\\
+      0, & T^* \vdash \lnot p
+    \end{cases}
+  \end{align}
+
 
   Докажем по структурной индукции, что $\mathcal{I}$ --- модель $T^*$
 
   \begin{description}
-  \item[База:]
+  \item[$База:$]
     $p$ --- пропозиционная переменная,
     $[\![ p ]\!] = 1 \iff T^* \vdash p$
-  \item[Переход:]
+  \item[$Переход:$]
     Пусть для $\alpha, \beta$ выполняется доказываемое утверждение
     Нужно доказать утверждение для $\alpha \land \beta, \alpha \lor \beta, \alpha \to \beta, \lnot \alpha$.
     \begin{enumerate}
@@ -461,5 +465,6 @@ $\lnot\land\lor\to$
   Тогда существует формальный вывод $\lnot \varphi \to \bot$,
   добавим аксиому $(\lnot \varphi \to \bot) \to \lnot \lnot \varphi$
   и применем modus ponens, выведем $\lnot \lnot \varphi$. Применим аксиому снятия двойного отрицания, получим, что требовалось доказать.
+
 \end{proof}
 \end{document}
