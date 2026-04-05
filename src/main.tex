@@ -85,16 +85,16 @@ $\lnot\land\lor\to$
 \end{definition}
 
 \begin{definition}
-  $[\![ \phi ]\!]_{\mathcal{I}}$ - семантическая скобка, которая выдает значение из $\mathbb{B}_0$, где $\phi$ - формула
+  $[\![ \varphi ]\!]_{\mathcal{I}}$ - семантическая скобка, которая выдает значение из $\mathbb{B}_0$, где $\varphi$ - формула
   Индуктивно определим:
   \begin{itemize}
   \item $[\![ p ]\!]_{\mathcal{I}} = \mathcal{I}(p)$, $p \in \mathcal{P}$
   \item $[\![ \bot ]\!]_{\mathcal{I}} = 0$
   \item $[\![ \top ]\!]_{\mathcal{I}} = 1$
-  \item $[\![ \lnot \phi ]\!]_{\mathcal{I}} = 1 - [\![ \phi ]\!]_{\mathcal{I}}$
-  \item $[\![ \phi \lor \psi ]\!]_{\mathcal{I}} = max([\![ \phi ]\!]_{\mathcal{I}}, [\![ \psi ]\!]_{\mathcal{I}})$
-  \item $[\![ \phi \land \psi ]\!]_{\mathcal{I}} = min([\![ \phi ]\!]_{\mathcal{I}}, [\![ \psi ]\!]_{\mathcal{I}})$
-  \item $[\![ \phi \to \psi ]\!]_{\mathcal{I}} = [\![ \lnot \phi \lor \psi ]\!]_{\mathcal{I}}$
+  \item $[\![ \lnot \varphi ]\!]_{\mathcal{I}} = 1 - [\![ \varphi ]\!]_{\mathcal{I}}$
+  \item $[\![ \varphi \lor \psi ]\!]_{\mathcal{I}} = max([\![ \varphi ]\!]_{\mathcal{I}}, [\![ \psi ]\!]_{\mathcal{I}})$
+  \item $[\![ \varphi \land \psi ]\!]_{\mathcal{I}} = min([\![ \varphi ]\!]_{\mathcal{I}}, [\![ \psi ]\!]_{\mathcal{I}})$
+  \item $[\![ \varphi \to \psi ]\!]_{\mathcal{I}} = [\![ \lnot \varphi \lor \psi ]\!]_{\mathcal{I}}$
   \end{itemize}
 \end{definition}
 
@@ -107,9 +107,9 @@ $\lnot\land\lor\to$
 \begin{definition}
   \leavevmode  
   \begin{enumerate}
-  \item $\phi$ - тавтология, если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \phi ]\!]_{\mathcal{I}} = 1$
-  \item $\phi$ - невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \phi ]\!]_{\mathcal{I}} = 0$
-  \item $\phi$ - выполнима (SAT), если $\exists \ \mathcal{I}$ --- интерпретация, $[\![ \phi ]\!]_{\mathcal{I}} = 1$
+  \item $\varphi$ - тавтология, если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \varphi ]\!]_{\mathcal{I}} = 1$
+  \item $\varphi$ - невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \varphi ]\!]_{\mathcal{I}} = 0$
+  \item $\varphi$ - выполнима (SAT), если $\exists \ \mathcal{I}$ --- интерпретация, $[\![ \varphi ]\!]_{\mathcal{I}} = 1$
 
   \end{enumerate}
 \end{definition}
@@ -118,7 +118,7 @@ $\lnot\land\lor\to$
 \end{example}
 
 \begin{definition}[Логическое следствие]
-  Если для всякой интерпретации $\mathcal{I}$, такое что $[\![ \phi ]\!]_{\mathcal{I}} = 1$, выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, то пишем $\phi \models \psi$.
+  Если для всякой интерпретации $\mathcal{I}$, такое что $[\![ \varphi ]\!]_{\mathcal{I}} = 1$, выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, то пишем $\varphi \models \psi$.
 \end{definition}
 
 \begin{definition}
@@ -128,22 +128,30 @@ $\lnot\land\lor\to$
 \begin{definition}
   \leavevmode
   \begin{enumerate}
-  \item Теория $\mathcal{T}$ выполнима (SAT), если $\exists \ \mathcal{I}$ --- интерпретация, $\forall \ \phi \in \mathcal{T}, [\![ \phi ]\!]_{\mathcal{I}} = 1$.
-  \item Теория $\mathcal{T}$ невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $\exists \ \phi \in \mathcal{T}, [\![ \phi ]\!]_{\mathcal{I}} = 0$.
+  \item Теория $\mathcal{T}$ выполнима (SAT), если $\exists \ \mathcal{I}$ --- интерпретация, $\forall \ \varphi \in \mathcal{T}, [\![ \varphi ]\!]_{\mathcal{I}} = 1$.
+  \item Теория $\mathcal{T}$ невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $\exists \ \varphi \in \mathcal{T}, [\![ \varphi ]\!]_{\mathcal{I}} = 0$.
   \end{enumerate}
 \end{definition}
 
 \begin{definition}
-  Пусть $\mathcal{T}$ --- теория, $\phi$ --- формула.
-  Мы пишем $\mathcal{T} \models \phi$, если для любой интерпретации $\mathcal{I}$, при которой $\mathcal{T}$ выполнима, $[\![ \psi ]\!]_{\mathcal{I}} = 1$
+  Пусть $\mathcal{T}$ --- теория, $\varphi$ --- формула.
+  Мы пишем $\mathcal{T} \models \varphi$, если для любой интерпретации $\mathcal{I}$, при которой $\mathcal{T}$ выполнима, $[\![ \psi ]\!]_{\mathcal{I}} = 1$
 \end{definition}
 
 \begin{definition}[Модель теории]
   Пусть $\mathcal{T}$ --- теория, $\mathcal{I}$ --- интерпретация.
 
-
-  $\mathcal{I}$ - модель теории $\mathcal{T}$, если $\forall \phi \in \mathcal{I}, [\![ \psi ]\!]_{\mathcal{I}} = 1$
+т
+  $\mathcal{I}$ называется модель теории $\mathcal{T}$, если $\forall \varphi \in \mathcal{I}, [\![ \psi ]\!]_{\mathcal{I}} = 1$
 \end{definition}
+
+\begin{notation}
+  Пусть $\mathcal{I}: \mathcal{P} \to \mathbb{B}_0$ --- интерпретация
+  
+  Тогда
+  $Th(\mathcal{I}) = \{\varphi : [\![ \varphi ]\!]_{\mathcal{I}} = 1\}$
+\end{notation}
+
 \begin{corollary}
   \leavevmode
   \begin{enumerate}
@@ -155,56 +163,56 @@ $\lnot\land\lor\to$
   \leavevmode
   \begin{enumerate}
   \item $\{p, q\} \models r \iff p, q \models r$
-  \item $T \cup \phi \models \psi \iff T , \phi \models \psi$
-  \item $\varnothing \models \phi \iff \ \models \phi$
+  \item $T \cup \varphi \models \psi \iff T , \varphi \models \psi$
+  \item $\varnothing \models \varphi \iff \ \models \varphi$
   \end{enumerate}
-  Здесь $\Leftrightarrow$ --- равносильность утверждений
+  Здесь $\iff$ --- равносильность утверждений
 \end{remark}
 
 \begin{definition}
   Пусть $A$ и $T$ --- теории.
   $A$ --- аксиома теории $T$,
-  если $\forall \phi \in A, T \models \phi \ $  и  $ \ \forall \phi \in T, A \models \phi$
+  если $\forall \varphi \in A, T \models \varphi \ $  и  $ \ \forall \varphi \in T, A \models \varphi$
 \end{definition}
 \begin{definition}
  $T$  --- конечно аксиоматизируема, если $\exists A : A$ --- конечная аксиома теории $T$
 \end{definition}
 
 \begin{theorem}[О логическом следствии]
-  Пусть $\Gamma$ --- множество формул, $\phi$ и $\psi$ --- формулы. Тогда
-  \[ \Gamma, \phi \models \psi \hspace{1cm} \text{тогда и только тогда, когда} \hspace{1cm} \Gamma \models \phi \to \psi\]
+  Пусть $\Gamma$ --- множество формул, $\varphi$ и $\psi$ --- формулы. Тогда
+  \[ \Gamma, \varphi \models \psi \hspace{1cm} \text{тогда и только тогда, когда} \hspace{1cm} \Gamma \models \varphi \to \psi\]
 \end{theorem}
 \begin{proof}
   \textbf{Необходимость}:
 
-  Пусть $\Gamma, \phi \models \psi$ и $\mathcal{I}$ --- модель $\Gamma$
+  Пусть $\Gamma, \varphi \models \psi$ и $\mathcal{I}$ --- модель $\Gamma$
 
-  \underline{Случай 1}: $[\![ \phi ]\!]_{\mathcal{I}} = 0$.
+  \underline{Случай 1}: $[\![ \varphi ]\!]_{\mathcal{I}} = 0$.
   Очевидно, т.к. из лжи следует всё что угодно
 
-  \underline{Случай 2}: $[\![ \phi ]\!]_{\mathcal{I}} = 1$.
+  \underline{Случай 2}: $[\![ \varphi ]\!]_{\mathcal{I}} = 1$.
 
-  $[\![ \phi ]\!]_{\mathcal{I}} = 1 \Rightarrow [\![ \psi ]\!]_{\mathcal{I}} = 1 \Rightarrow [\![ \phi \to \psi ]\!]_{\mathcal{I}} = 1$
+  $[\![ \varphi ]\!]_{\mathcal{I}} = 1 \Rightarrow [\![ \psi ]\!]_{\mathcal{I}} = 1 \Rightarrow [\![ \varphi \to \psi ]\!]_{\mathcal{I}} = 1$
 
   \textbf{Достаточность}:
 
-  Пусть $\Gamma \models \phi \to \psi$ и $\mathcal{I}$ --- модель $\Gamma$
+  Пусть $\Gamma \models \varphi \to \psi$ и $\mathcal{I}$ --- модель $\Gamma$
 
-  Знаем, что $[\![ \phi \to \psi ]\!]_{\mathcal{I}} = 1$
+  Знаем, что $[\![ \varphi \to \psi ]\!]_{\mathcal{I}} = 1$
 
-  Если выполнено $[\![ \phi ]\!]_{\mathcal{I}} = 1$, тогда выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, что удовлетворяет $\Gamma, \phi \models \psi$ по определению
+  Если выполнено $[\![ \varphi ]\!]_{\mathcal{I}} = 1$, тогда выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, что удовлетворяет $\Gamma, \varphi \models \psi$ по определению
 
 \end{proof}
 
 \begin{definition}
-  $\phi \sim \psi \iff \phi \models \psi \ $ и $\ \psi \models \phi$
+  $\varphi \sim \psi \iff \varphi \models \psi \ $ и $\ \psi \models \varphi$
 \end{definition}
 \begin{example}
   \leavevmode
   \begin{itemize}
-  \item $\phi \to \psi \sim \lnot \psi \to \lnot \phi$
-  \item $\lnot \lnot \phi \sim \phi$
-  \item $\lnot (\phi \land \psi) \sim \lnot \phi \lor \lnot \psi$
+  \item $\varphi \to \psi \sim \lnot \psi \to \lnot \varphi$
+  \item $\lnot \lnot \varphi \sim \varphi$
+  \item $\lnot (\varphi \land \psi) \sim \lnot \varphi \lor \lnot \psi$
   \end{itemize}
 \end{example}
 
@@ -248,9 +256,9 @@ $\lnot\land\lor\to$
 \end{definition}
 
 \begin{notation}
-  $\Gamma \vdash \phi$ --- значит $\phi$ выводится из гипотез, принадлежащих $\Gamma$
+  $\Gamma \vdash \varphi$ --- значит $\varphi$ выводится из гипотез, принадлежащих $\Gamma$
 
-  Ещё $\varnothing \vdash \phi \iff \vdash \phi$
+  Ещё $\varnothing \vdash \varphi \iff \vdash \varphi$
 \end{notation}
 
 \begin{definition}
@@ -270,8 +278,8 @@ $\lnot\land\lor\to$
     \item $\beta \rightarrow \alpha \lor \beta$ (Right)
     \item $\alpha \rightarrow \beta \rightarrow \alpha \land \beta$ (Создание пары)
     \item $(\alpha \rightarrow \gamma) \rightarrow (\beta \rightarrow \gamma) \rightarrow (\alpha \lor \beta \rightarrow \gamma)$ (Pattern matching)
-    \item $\alpha \rightarrow \top$
-    \item $\bot \rightarrow \alpha$
+    \item $\alpha \rightarrow \top$ ( fun x $\rightarrow$ () в OCaml)
+    \item $\bot \rightarrow \alpha$ ( $\bot$ --- аналог type void = | )
     \item $(\alpha \rightarrow \bot) \rightarrow \lnot \alpha$
     \item $\lnot \alpha \rightarrow (\alpha \rightarrow \bot)$
     \item $(\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow \lnot \beta) \rightarrow \lnot \alpha$
@@ -286,9 +294,172 @@ $\lnot\land\lor\to$
 \end{definition}
 
 \begin{example}
-  Зная, что первые две аксиомы исчисление Гильбертского типа --- типы функций $K$ и $S$ из комбинаторной логики SKI соответсвенно, мы можем дедуцировать $\alpha \rightarrow \alpha$
+  Зная, что первые две аксиомы исчисление Гильбертского типа --- типы функций $K$ и $S$ из комбинаторной логики SKI соответсвенно, мы можем вывести $\alpha \rightarrow \alpha$
 
   $I = (SK)K$
 \end{example}
 
+\begin{theorem}[Обобщённая теорема дедукции]
+  $\Gamma$ --- множество формул
+
+  $\varphi$, $\psi$ --- формулы. Тогда
+
+  \[ \Gamma, \varphi \vdash \psi \hspace{1cm} \text{тогда и только тогда, когда} \hspace{1cm} \Gamma \vdash \varphi \to \psi\]
+\end{theorem}
+\begin{proof}
+  \textbf{Достаточность}:
+  
+  Пусть $\Gamma, \vdash \varphi \rightarrow \psi$, тогда существует формальный вывод слова $\varphi \rightarrow \psi$:
+  \[........, \varphi \rightarrow \psi\] Рассматриваем гипотезу $\Gamma$ вместе с $\varphi$, из гипотез выводится формальный вывод и к нему добавим $\varphi$ справа
+  \[........, \varphi \rightarrow \psi, \varphi\]
+  Применим modus ponens и получим $\psi$. Мы вывели $\psi$ из $\Gamma$ и $ \varphi$, т.е. $\Gamma, \varphi \vdash \psi$.
+  
+  \textbf{Необходимость}:
+
+  Пусть $\Gamma, \varphi \vdash \psi$, тогда существует формальный вывод слова $\psi$:
+  \[ \alpha_1 , \alpha_2, ..., \alpha_n\]
+  , где \alpha_n = \psi
+
+  Сделаем такую последовательность слов:
+  \[ \varphi \rightarrow \alpha_1 , \varphi \rightarrow \alpha_2, ..., \varphi \rightarrow \alpha_n\]
+  Хотим сделать этой последовательности формальный вывод, запустим процесс `вылечивания`.
+
+  Рассматриваем все $\alpha_i$, для каждой --- следующие случаи:
+  \begin{itemize}
+  \item Если $\alpha_i = \varphi$, то $\varphi \rightarrow \varphi$ --- тавтология
+  \item Если $\alpha_i$ --- аксиома или гипотеза, тогда заменяем $\varphi \rightarrow \alpha_i$  на $\alpha_i \rightarrow \varphi \rightarrow \alpha_i$ (это верно по аксиоме), применяем modus ponens и получаем $\varphi \rightarrow \alpha_i$
+  \item Если $\alpha_i$ --- выводится
+    
+    В изначальном выводе было
+    \[ ... ,\beta \to \alpha_i, ..., \beta, ..., \alpha_i\]
+
+    Стало так
+    \[ ... ,\varphi \to \beta \to \alpha_i, ..., \varphi \to \beta, ..., \varphi \to \alpha_i\]
+
+    Добавляем аксиому типа S, применяем modus ponens два раза.
+    
+  \end{itemize}
+\end{proof}
+\begin{theorem}[Теорема корректности]
+  Если $T \vdash \varphi$, то $T \models \varphi$
+\end{theorem}
+\begin{proof}
+  Индукция по длине вывода $n$:
+
+  \textit{База : $n = 1$} \hfill \\
+  Это значит, что $\varphi$ --- аксиома или гипотеза. Осталось проверить, что все аксиомы --- семантические тавтологии...
+  
+  \textit{Индукционный переход : $<n \to n$} \hfill \\
+  Мы предпологаем, что теорема выполняется для любого слова, длина формального вывода которого меньше $n$.
+  Докажем, что верно и для $n$. Рассмотрим вывод $T \vdash \varphi$ длины $n$.
+  Случай с аксиомой и гипотезой мы уже разобрали. Тогда рассмотрим, что $\varphi$ --- выводится, т.е. следующий вывод
+  \[ ....., \alpha \to \varphi, ..., \alpha, ..., \varphi\]
+
+  Рассмотрим этот вывод без $\varphi$. Применяя индукционный переход получим, что
+
+  \[ [\![ \alpha \to \varphi ]\!] = [\![ \alpha ]\!] = 1 \]
+
+  Тогда понятно, что $[\![ \varphi ]\!] = 1$
+  
+\end{proof}
+
+\begin{definition}
+  Теория $\mathcal{T}$ называется полной (complete), если
+  \begin{enumerate}
+  \item Теория выполнима
+  \item $\forall \varphi$ такие что $\varphi \in \mathcal{T}$ или $\lnot \varphi \in \mathcal{T}$ выполняется $T \models \varphi$ или $T \models \lnot \phi$
+  \end{enumerate}
+\end{definition}
+
+До конца главы нам нужно доказать теорему полноты (Если $T \models \varphi$, то $T \vdash \varphi$), но для этого нужно доказать две теоремы.
+
+\begin{definition}
+  Теория $\mathcal{T}$ называется непротиворечивой (consistent), если
+  для любой формулы $\varphi \in \mathcal{T}$ нельзя вывести её и её отрицание.
+\end{definition}
+
+\begin{remark}
+  Если теория $\mathcal{T}$ противоречивая, то можно вывести $\bot$
+\end{remark}
+
+\begin{definition}
+  Теория $\mathcal{T}$ называется максимально непротиворечивой (max consistent), если
+  для любой формулы $\varphi \in \mathcal{T}$ можно вывести либо её, либо её отрицание.
+\end{definition}
+
+\begin{remark}
+  Она \textbf{максимально} непротиворечивая, т.к уже нельзя расширить теорию, чтобы она ещё оставалось выполняемой
+\end{remark}
+
+\begin{remark}
+  Из максимальной непротиворечивости следует непротиворечивость. 
+\end{remark}
+
+\begin{theorem}[Лемма Линденбаума]
+  Всякая непротиворечивая теория содержится в некоторой максимально непротиворечивой теории
+\end{theorem}
+\begin{proof}
+  Для счётного языка можно пронумеровать все формулы (смотри Gödel numbering). Пусть $\mathcal{T} = \{\alpha_1, \alpha_2, ...\}$
+  Дальше определяем следующую SAT теорию:
+  \[
+  T_0 = \top
+  \]
+  \[
+  T_{n+1} =\begin{cases}
+    $\{\alpha_n\} \cup T_n$ & ,\text{если она SAT}\\
+    $T_n$ & ,\text{иначе}
+  \end{cases}
+  \]
+
+  Определяем \[T^* = \bigcup\limits_{n=0}^{\infty}T_n\]
+
+  \begin{description}
+  \item[T^* \text{ непротиворечивая:}] \hfill \\
+    Предположим обратное, пусть $T^*$ --- противоречивая теория, тогда есть формальный вывод $\bot$. Это формальный вывод пренадлежит также конечному подмножеству $T^*$, назовём такую теорию $T^{\prime}$. Тогда $\exists n$, что $T^{\prime} \subset T_n$, но тогда $T^{\prime}$ непротиворечивая (?!!)
+  \item[T^* \text{ максимально непротиворечивая:}] \hfill \\
+    Предположим обратное, пусть $\exists \varphi : T^* \nvdash \varphi$ и $T^* \nvdash \lnot \varphi$. Докажем, что $T^* \cup \{\varphi\}$ --- непротиворечивая. Опять от противного, $T^* \cup \{\varphi\}$ --- противоречивая, тогда \[T^*, \varphi \vdash \bot\]
+    Применяя теорему о дедукции, получаем $T^*\vdash \varphi \to \bot$, но если воспользоваться аксиомой
+    $(\varphi \to \bot) \to \lnot \varphi$, то тогда $T^*\vdash \lnot \varphi$ (?!!)
+  \end{description}
+\end{proof}
+\begin{theorem}[о $\exists$ модели]
+  Если теория непротиворечивая, то для неё существует модель
+\end{theorem}
+\begin{proof}
+  По предыдущей теореме существует максимально непротиворечивая теория $T^* \subset T$. Любая модель $T^*$ есть $T$, поэтому для доказательства теоремы достаточно найти модель для $T^*$.
+
+  $T^*$ --- максимально непротиворечивая, тогда для любой пропозициональной переменной $p$ либо $T^* \vdash p$, либо $T^* \vdash \lnot p$.
+  Определим $\mathcal{I}(p) = $
+  \begin{cases}
+    1, & T^* \vdash p\\
+    0, & T^* \vdash \lnot p
+  \end{cases}
+
+  Докажем по структурной индукции, что $\mathcal{I}$ --- модель $T^*$
+
+  \begin{description}
+  \item[База:]
+    $p$ --- пропозиционная переменная,
+    $[\![ p ]\!] = 1 \iff T^* \vdash p$
+  \item[Переход:]
+    Пусть для $\alpha, \beta$ выполняется доказываемое утверждение
+    Нужно доказать утверждение для $\alpha \land \beta, \alpha \lor \beta, \alpha \to \beta, \lnot \alpha$.
+    \begin{enumerate}
+    \item Рассмотрим $\lnot \alpha$. $[\![ \alpha ]\!] = 0 \iff [\![ \lnot \alpha ]\!] = 1$. По индукционному предположение ясно, что $T^* \vdash \alpha \iff [\![ \alpha ]\!] = 0$. Пользуясь непротиворечивостью и теоремой о полноте получаем, что $T^* \nvdash \alpha \iff T^* \vdash \lnot \alpha$
+    \end{enumerate}
+    Дальше аналогичные рассуждение для других трёх пунктов
+    
+  \end{description}
+\end{proof}
+\begin{theorem}[Теорема о полноте]
+Если $T \models \varphi$, то $T \vdash \varphi$
+\end{theorem}
+\begin{proof}
+  Пусть $T \models \varphi$, тогда $T \cup \{\lnot \varphi\}$ --- невыполнимая теория, соответсвенно,
+  \[T \vdash \lnot \varphi \to \bot\]
+
+  Тогда существует формальный вывод $\lnot \varphi \to \bot$,
+  добавим аксиому $(\lnot \varphi \to \bot) \to \lnot \lnot \varphi$
+  и применем modus ponens, выведем $\lnot \lnot \varphi$. Применим аксиому снятия двойного отрицания, получим, что требовалось доказать.
+\end{proof}
 \end{document}
