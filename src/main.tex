@@ -105,7 +105,7 @@ $\lnot\land\lor\to$
 \end{example}
 
 \begin{definition}
-  \leavevmode  
+  \leavevmode
   \begin{enumerate}
   \item $\varphi$ - тавтология, если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \varphi ]\!]_{\mathcal{I}} = 1$
   \item $\varphi$ - невыполнима (UNSAT), если $\forall \ \mathcal{I}$ --- интерпретация, $[\![ \varphi ]\!]_{\mathcal{I}} = 0$
@@ -118,7 +118,7 @@ $\lnot\land\lor\to$
 \end{example}
 
 \begin{definition}[Логическое следствие]
-  Если для всякой интерпретации $\mathcal{I}$, такое что $[\![ \varphi ]\!]_{\mathcal{I}} = 1$, выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, то пишем $\varphi \models \psi$.
+  Если для всякой интерпретации $\mathcal{I}$, такое что $[\![ \varphi ]\!]_{\mathcal{I}} = 1$, выполнено $[\![ \psi ]\!]_{\mathcal{I}} = 1$, то пишем $\varphi \models \varphi$.
 \end{definition}
 
 \begin{definition}
@@ -147,7 +147,7 @@ $\lnot\land\lor\to$
 
 \begin{notation}
   Пусть $\mathcal{I}: \mathcal{P} \to \mathbb{B}_0$ --- интерпретация
-  
+
   Тогда
   $Th(\mathcal{I}) = \{\varphi : [\![ \varphi ]\!]_{\mathcal{I}} = 1\}$
 \end{notation}
@@ -158,7 +158,7 @@ $\lnot\land\lor\to$
   \item Теория $\mathcal{T}$ выполнима (SAT), если $\exists \ \mathcal{M}$ --- модель теории $\mathcal{T}$.
   \item Теория $\mathcal{T}$ невыполнима (UNSAT), если $\nexists$ модели.
   \end{enumerate}
-\end{corollary}  
+\end{corollary}
 \begin{remark}[Упрощение обозначения логического следствия]
   \leavevmode
   \begin{enumerate}
@@ -226,7 +226,7 @@ $\lnot\land\lor\to$
 \begin{definition}
   Исчисление $\mathcal{C}$ задаётся:
   \begin{enumerate}
-  \item Языком 
+  \item Языком
   \item Аксиомами
   \item Правилами вывода
   \end{enumerate}
@@ -308,12 +308,12 @@ $\lnot\land\lor\to$
 \end{theorem}
 \begin{proof}
   \textbf{Достаточность}:
-  
+
   Пусть $\Gamma, \vdash \varphi \rightarrow \psi$, тогда существует формальный вывод слова $\varphi \rightarrow \psi$:
   \[........, \varphi \rightarrow \psi\] Рассматриваем гипотезу $\Gamma$ вместе с $\varphi$, из гипотез выводится формальный вывод и к нему добавим $\varphi$ справа
   \[........, \varphi \rightarrow \psi, \varphi\]
   Применим modus ponens и получим $\psi$. Мы вывели $\psi$ из $\Gamma$ и $ \varphi$, т.е. $\Gamma, \varphi \vdash \psi$.
-  
+
   \textbf{Необходимость}:
 
   Пусть $\Gamma, \varphi \vdash \psi$, тогда существует формальный вывод слова $\psi$:
@@ -329,7 +329,7 @@ $\lnot\land\lor\to$
   \item Если $\alpha_i = \varphi$, то $\varphi \rightarrow \varphi$ --- тавтология
   \item Если $\alpha_i$ --- аксиома или гипотеза, тогда заменяем $\varphi \rightarrow \alpha_i$  на $\alpha_i \rightarrow \varphi \rightarrow \alpha_i$ (это верно по аксиоме), применяем modus ponens и получаем $\varphi \rightarrow \alpha_i$
   \item Если $\alpha_i$ --- выводится
-    
+
     В изначальном выводе было
     \[ ... ,\beta \to \alpha_i, ..., \beta, ..., \alpha_i\]
 
@@ -337,7 +337,7 @@ $\lnot\land\lor\to$
     \[ ... ,\varphi \to \beta \to \alpha_i, ..., \varphi \to \beta, ..., \varphi \to \alpha_i\]
 
     Добавляем аксиому типа S, применяем modus ponens два раза.
-    
+
   \end{itemize}
 \end{proof}
 \begin{theorem}[Теорема корректности]
@@ -348,7 +348,7 @@ $\lnot\land\lor\to$
 
   \textit{База : $n = 1$} \hfill \\
   Это значит, что $\varphi$ --- аксиома или гипотеза. Осталось проверить, что все аксиомы --- семантические тавтологии...
-  
+
   \textit{Индукционный переход : $<n \to n$} \hfill \\
   Мы предпологаем, что теорема выполняется для любого слова, длина формального вывода которого меньше $n$.
   Докажем, что верно и для $n$. Рассмотрим вывод $T \vdash \varphi$ длины $n$.
@@ -360,7 +360,7 @@ $\lnot\land\lor\to$
   \[ [\![ \alpha \to \varphi ]\!] = [\![ \alpha ]\!] = 1 \]
 
   Тогда понятно, что $[\![ \varphi ]\!] = 1$
-  
+
 \end{proof}
 
 \begin{definition}
@@ -371,7 +371,7 @@ $\lnot\land\lor\to$
   \end{enumerate}
 \end{definition}
 
-До конца главы нам нужно доказать теорему полноты (Если $T \models \varphi$, то $T \vdash \varphi$), но для этого нужно доказать две теоремы.
+До конца главы нам нужно доказать теорему полноты (Если $T \models \varphi$, то $T \vdash \varphi$), но для этого нужно доказать две вспомогательных теоремы.
 
 \begin{definition}
   Теория $\mathcal{T}$ называется непротиворечивой (consistent), если
@@ -392,7 +392,7 @@ $\lnot\land\lor\to$
 \end{remark}
 
 \begin{remark}
-  Из максимальной непротиворечивости следует непротиворечивость. 
+  Из максимальной непротиворечивости следует непротиворечивость.
 \end{remark}
 
 \begin{theorem}[Лемма Линденбаума]
@@ -442,17 +442,17 @@ $\lnot\land\lor\to$
   Докажем по структурной индукции, что $\mathcal{I}$ --- модель $T^*$
 
   \begin{description}
-  \item[$База:$]
+  \item[$\text{База}:$]
     $p$ --- пропозиционная переменная,
     $[\![ p ]\!] = 1 \iff T^* \vdash p$
-  \item[$Переход:$]
+  \item[$\text{Переход}:$]
     Пусть для $\alpha, \beta$ выполняется доказываемое утверждение
     Нужно доказать утверждение для $\alpha \land \beta, \alpha \lor \beta, \alpha \to \beta, \lnot \alpha$.
     \begin{enumerate}
     \item Рассмотрим $\lnot \alpha$. $[\![ \alpha ]\!] = 0 \iff [\![ \lnot \alpha ]\!] = 1$. По индукционному предположение ясно, что $T^* \vdash \alpha \iff [\![ \alpha ]\!] = 0$. Пользуясь непротиворечивостью и теоремой о полноте получаем, что $T^* \nvdash \alpha \iff T^* \vdash \lnot \alpha$
     \end{enumerate}
     Дальше аналогичные рассуждение для других трёх пунктов
-    
+
   \end{description}
 \end{proof}
 \begin{theorem}[Теорема о полноте]
@@ -464,7 +464,70 @@ $\lnot\land\lor\to$
 
   Тогда существует формальный вывод $\lnot \varphi \to \bot$,
   добавим аксиому $(\lnot \varphi \to \bot) \to \lnot \lnot \varphi$
-  и применем modus ponens, выведем $\lnot \lnot \varphi$. Применим аксиому снятия двойного отрицания, получим, что требовалось доказать.
+  и применим modus ponens, выведем $\lnot \lnot \varphi$. Применим аксиому снятия двойного отрицания, получим, что требовалось доказать.
 
 \end{proof}
-\end{document}
+
+\section{Генценовское секвенциальное исчисление (Sequent calculus)}
+\begin{definition}
+  Секвенция --- это слова вида $\Gamma \vdash \Delta$, где $\Gamma, \Delta$ --- конечные последовательности формул.
+
+  $\Gamma$ называется \textbf{антецедентом}, а $Delta$ --- \textbf{сукцедентом}.
+\end{definition}
+
+\begin{definition}
+  Генценовское секвенциальное исчисление определяется следующим образом
+  \begin{enumerate}
+  \item Язык --- это язык секвенций
+  \item Аксиомы:
+    Пусть $\varphi$ --- формула
+    \begin{itemize}
+    \item $\Gamma, \varphi \vdash \Delta, \varphi$
+    \item $\Gamma, \bot \vdash \Delta$
+    \item $\Gamma \vdash \top, \Delta$
+    \end{itemize}
+  \end{enumerate}
+\item Правила вывода:
+  \begin{enumerate}
+  \item $LK_0$ правила:
+    \begin{itemize}
+      \begin{prooftree}
+        \AxiomC{$\Gamma, \alpha \vdash \Delta \quad \Gamma, \alpha \vdash \Delta$}
+        \UnaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}
+      \end{prooftree}
+      \begin{prooftree}
+        \AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}
+        \UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}
+      \end{prooftree}
+      \begin{prooftree}
+        \AxiomC{$\Gamma, \beta \vdash \Delta \quad \Gamma \vdash \alpha, \Delta$}
+        \UnaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}
+      \end{prooftree}
+      \begin{prooftree}
+        \AxiomC{$\Gamma \vdash \alpha, \Delta $}
+        \UnaryInfC{$\Gamma, \lnot \alpha \vdash \Delta$}
+      \end{prooftree}
+    \end{itemize}
+    \item $NK_0$ правила:
+    \begin{itemize}
+      \begin{prooftree}
+        \AxiomC{$\Gamma \vdash \alpha, \beta, \Delta$}
+        \UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}
+      \end{prooftree}
+      \begin{prooftree}
+        \AxiomC{$\Gamma \vdash \alpha \Delta \quad \Gamma \vdash \beta \Delta$}
+        \UnaryInfC{$\Gamma \vdash \alpha \land \beta \Delta$}
+      \end{prooftree}
+      \begin{prooftree}
+        \AxiomC{$\Gamma, \alpha \vdash \Delta \beta$}
+        \UnaryInfC{$\Gamma \vdash, \alpha \to \beta$}
+      \end{prooftree}
+      \begin{prooftree}
+        \AxiomC{$\Gamma , \alpha \vdash  \Delta $}
+        \UnaryInfC{$\Gamma \vdash \lnot \alpha, \Delta$}
+      \end{prooftree}
+    \end{itemize}
+  \end{enumerate}
+\end{definition}
+
+ \end{document}
